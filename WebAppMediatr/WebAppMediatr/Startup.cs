@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,11 @@ namespace WebAppMediatr
             });
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            //Irá registrar todas as classe que implementam a interface AbstractValidator no container de injeção de 
+            // dependência
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

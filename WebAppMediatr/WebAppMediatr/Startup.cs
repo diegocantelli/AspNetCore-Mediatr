@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppMediatr.PipelineBehaviors;
 
 namespace WebAppMediatr
 {
@@ -39,6 +40,9 @@ namespace WebAppMediatr
             //Irá registrar todas as classe que implementam a interface AbstractValidator no container de injeção de 
             // dependência
             services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
+
+            //Registrando as dependências do pipeline behavior
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
